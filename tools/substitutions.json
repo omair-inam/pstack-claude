@@ -49,6 +49,18 @@
     {
       "token": "/goal",
       "hint": "Cursor's /goal has no Claude Code equivalent; the autopilot playbooks keep the objective in standing orders"
+    },
+    {
+      "token": "update_state",
+      "hint": "Cursor's routine/state tool (make-bot-ui); no Claude Code equivalent, the skill is deliberately not ported"
+    },
+    {
+      "token": "Grok Bot",
+      "hint": "Cursor's webhook bot (make-bot-ui); no Claude Code equivalent, the skill is deliberately not ported"
+    },
+    {
+      "token": "git show origin/main:pstack/",
+      "hint": "upstream re-reads playbooks from trunk; the port reads them from the installed plugin (`skills/... under the installed plugin`)"
     }
   ]
 }
