@@ -13,7 +13,7 @@ This is not a verbatim copy. Skill bodies have been edited so every Cursor-speci
 This repo ships as a Claude Code marketplace containing one plugin (`pstack`).
 
 ```shell
-/plugin marketplace add michael-denyer/pstack-claude
+/plugin marketplace add omair-inam/pstack-claude
 /plugin install pstack@pstack-claude
 ```
 
@@ -24,7 +24,7 @@ From 0.9.5 the plugin auto-fires, the same way superpowers does: a `SessionStart
 Codex, Prime Agent, opencode, and Gemini CLI all discover user skills from `~/.agents/skills/`. Clone the repository and link its shared skill tree once:
 
 ```shell
-git clone https://github.com/michael-denyer/pstack-claude
+git clone https://github.com/omair-inam/pstack-claude
 cd pstack-claude
 mkdir -p ~/.agents/skills
 for s in plugins/pstack/skills/*/; do ln -s "$PWD/$s" ~/.agents/skills/"$(basename "$s")"; done
@@ -37,7 +37,7 @@ Removing a link from `~/.agents/skills/` removes that skill from every runtime u
 The [`skills` CLI](https://github.com/vercel-labs/skills) installs the same tree without a clone, resolving `plugins/pstack/skills` as a subtree URL:
 
 ```shell
-npx skills add https://github.com/michael-denyer/pstack-claude/tree/main/plugins/pstack/skills --skill "*" --agent "*" --yes
+npx skills add https://github.com/omair-inam/pstack-claude/tree/main/plugins/pstack/skills --skill "*" --agent "*" --yes
 ```
 
 `plugins/pstack/skills` is a supported installation boundary. Everything a skill reads at runtime lives inside it, including the `poteto-agent` and `comment-sicko` definitions under `poteto-mode/references/agents/` and the MIT terms under `poteto-mode/references/licenses/`. Both directories sit inside a skill because the CLI installs skill directories and drops loose files at the tree root. The generator stamps exactly five portable assets from the sources declared in `PORTABLE_ASSETS` and removes stale output from those two generated directories. It rejects missing or escaping local Markdown links and direct instructions to open paths outside the skills tree. The `Skills-only install` CI job copies the tree with the CLI, compares every installed file with the source, and runs the same validation against the installed tree.
