@@ -170,7 +170,7 @@ Not declared as deps, but referenced in skill bodies:
 - **`run`, `verify`, `loop`** — Claude Code CLI built-ins (ship with the binary, always available).
 - **`gh` CLI** — system-level requirement of the `babysit` skill and the Babysit / Shipping playbooks. Install via [`brew install gh`](https://cli.github.com) and authenticate with `gh auth login`.
 - **`bun`** — runs the vendored `skills/poteto-mode/scripts/` tooling (`watch-pr`, `orch`). Install via [`brew install oven-sh/bun/bun`](https://bun.sh). Only the playbooks that call those scripts need it; `bootstrap.ts` installs the script dependencies on first run.
-- **`gt` (Graphite CLI)** — optional. Since 0.9.19 the stack playbooks (Shipping, the autopilots) land base-branch chains with `gh` alone and never require Graphite; only Orchestrate still mentions `gt`.
+- **`gt` (Graphite CLI)** — optional. Since 0.9.19 the stack playbooks (Shipping, the autopilots) land base-branch chains with `gh` alone and never require Graphite. Only the Orchestrate playbook still uses `gt`.
 - **`jq` and `rg` (ripgrep)** — only for `scripts/worktree-audit.sh` (the Worktree cleanup playbook). Without them the audit still runs but blanks its PR and LAST_CHAT columns, so it warns on stderr rather than returning a table that looks complete.
 
 No third-party plugins. The harsher-critique escape hatch lives in the bundled `thermo-nuclear-code-quality-review` skill (imported from cursor-team-kit), not in an external plugin.
@@ -253,7 +253,7 @@ The port is editorial, not mechanical. Anywhere upstream pstack assumed Cursor-s
 | Model `composer-2.5-fast` (Cursor) | `claude-sonnet-4-6` |
 | Model `claude-opus-4-X-thinking-xhigh` (Cursor UI variant) | `claude-opus-5` (extended thinking configured separately) |
 | Models `gpt-5.3-codex-high-fast`, `gpt-5.5-high-fast` (via Cursor) | `claude-sonnet-4-6`, `claude-haiku-4-5` (Claude family) |
-| Multi-model panels (arena, architect, interrogate, how-critics) | Default panel is `claude-opus-5` + `claude-fable-5` + `claude-sonnet-5` — three distinct models across three tiers (replaces the cross-vendor diversity lost in translation). |
+| Multi-model panels (arena, architect, interrogate, how-critics) | Default panel is `claude-opus-5` + `claude-fable-5-1` + `claude-sonnet-5` — three distinct models across three tiers (replaces the cross-vendor diversity lost in translation). |
 
 ### What's lost in translation
 
