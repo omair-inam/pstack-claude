@@ -61,7 +61,7 @@ Some triggers name skills that ship with Claude Code, not pstack. They do not ex
 
 ## Vendored scripts
 
-`skills/poteto-mode/scripts/` ships the `watch-pr` PR watcher, the `orch` store CLI, `check-plan.mjs`, and `worktree-audit.sh`. They are plain bun, node, and bash, so they run the same on Codex; invoke them through `shell`. They need `bun`, `gh`, and (for `worktree-audit.sh`) `jq` and `rg`. Graphite (`gt`) is optional; only the Orchestrate playbook uses it. `worktree-audit.sh` reads Claude Code transcripts under `~/.claude/projects/`; point it at your runtime's transcript directory instead when you run it elsewhere.
+`skills/poteto-mode/scripts/` ships the `watch-pr` PR watcher, the `orch` store CLI, `check-plan.mjs`, and `worktree-audit.sh`. They are plain bun, node, and bash, so they run the same on Codex; invoke them through `shell`. They need `bun`, `gh`, and (for `worktree-audit.sh`) `jq` and `rg`. Graphite (`gt`) is optional; only the Orchestrate playbook and the `orch` CLI (which parses `gt info` and `gt log` output) use it. `worktree-audit.sh` reads Claude Code transcripts under `~/.claude/projects/`; point it at your runtime's transcript directory instead when you run it elsewhere.
 
 ## Instructions file
 

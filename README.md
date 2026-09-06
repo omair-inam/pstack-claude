@@ -170,7 +170,7 @@ Not declared as deps, but referenced in skill bodies:
 - **`run`, `verify`, `loop`** — Claude Code CLI built-ins (ship with the binary, always available).
 - **`gh` CLI** — system-level requirement of the `babysit` skill and the Babysit / Shipping playbooks. Install via [`brew install gh`](https://cli.github.com) and authenticate with `gh auth login`.
 - **`bun`** — runs the vendored `skills/poteto-mode/scripts/` tooling (`watch-pr`, `orch`). Install via [`brew install oven-sh/bun/bun`](https://bun.sh). Only the playbooks that call those scripts need it; `bootstrap.ts` installs the script dependencies on first run.
-- **`gt` (Graphite CLI)** — optional. Since 0.9.19 the stack playbooks (Shipping, the autopilots) land base-branch chains with `gh` alone and never require Graphite. Only the Orchestrate playbook still uses `gt`.
+- **`gt` (Graphite CLI)** — optional. Since 0.9.19 the stack playbooks (Shipping, the autopilots) land base-branch chains with `gh` alone and never require Graphite. Only the Orchestrate playbook and its `orch` store CLI still use `gt`.
 - **`jq` and `rg` (ripgrep)** — only for `scripts/worktree-audit.sh` (the Worktree cleanup playbook). Without them the audit still runs but blanks its PR and LAST_CHAT columns, so it warns on stderr rather than returning a table that looks complete.
 
 No third-party plugins. The harsher-critique escape hatch lives in the bundled `thermo-nuclear-code-quality-review` skill (imported from cursor-team-kit), not in an external plugin.
