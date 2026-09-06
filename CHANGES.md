@@ -2,6 +2,20 @@
 
 This port applies the Cursor → Claude Code substitutions in skill bodies. Earlier drafts left them flagged; this revision resolves them. A later pass added a Codex build that shares the same skills; see [Codex port](#codex-port) below.
 
+## 0.9.19 — sync to upstream v0.14.8
+
+Catches the port up with upstream `cursor/plugins/pstack` from `4612556` (v0.14.2) to `7314f72` (v0.14.8). Twenty-eight upstream files changed; most of the delta is a model-slug bump and a rewrite of the PR playbooks. `bun tools/sync.mjs pstack 7314f72` wrote the clean files and the rest was merged by hand against the substitution table.
+
+**Forge-neutral PR playbooks** (upstream `23a56e2`). `babysit`, `shipping`, `opening-a-pr`, `autopilot-full`, and `autopilot-stack` no longer assume Graphite. A stack is a base-branch chain landed bottom-up with `gh pr merge --squash`, one PR at a time, with a stable `git patch-id` check before each merge and a wait for the forge to report the merge complete. Where upstream's CLI (`origin`) is installed the playbooks prefer it and fall back to `gh` otherwise; that check is a plain `command -v` and carries over unchanged. The port's own decisions in these files stand: owners are local background subagents in worktrees, the watcher path is `skills/poteto-mode/scripts/watch-pr/watch-pr` under the installed plugin, `/goal` becomes standing orders plus the todolist, playbooks are re-read from the installed plugin rather than `git show origin/main:`, and in Autopilot-full the operator still clicks every merge.
+
+**Multi-PR plan as a verified checklist** (upstream `bdf7aa3`). `playbooks/multi-phase-plan.md` grows a fixed plan template (H1, an under-ten-line intro, a "How to read this" section, one checkbox per unit of work with its evidence) and `references/plan.md` is deleted. A new `scripts/check-plan.mjs` lints a plan file for that shape and for the prose rules (no long dashes, curly quotes, or mid-sentence colons). Three port edits: the template's control-skill paragraph names the `run` and `verify` built-ins, the "arm the program" boxes use standing orders and installed-plugin paths, and the linter's `LANES` and `PROGRAM_MARKERS` constants match those strings (upstream hard-codes `grok-4.6-fast-xhigh` and `/goal`). Live lanes run as background subagents in worktrees rather than cloud VMs.
+
+**Fable 5.1 defaults** (upstream `23a56e2`). Upstream moved every solo role (bug-fix, perf-issue, hillclimb, judgment) onto `claude-fable-5-1-thinking-max`. `plugins/pstack/models.json` swaps `claude-fable-5` for `claude-fable-5-1` in the same roles and in the three-model panel, and keeps Fable 5 in the available list beside the other previous-generation models; the generator restamped the six Models sections. Upstream slug edits inside skill bodies are therefore no-ops here.
+
+**Copied as-is.** `typescript-best-practices` gains the "schemas before guards" row, 23 lines of `references/patterns.md`, and upstream's `paths: ["**/*.ts", "**/*.tsx"]` frontmatter so the skill attaches when those files are open. `references/bugbot-triage.md` takes upstream's one-line wording change. Upstream's edits to `bug-fix`, `hillclimb`, and `perf-issue` were slug bumps only; those playbooks read their defaults from poteto-mode's Models section, so they are unchanged here.
+
+**Skipped.** `disable-model-invocation: true` added to `how`, `unslop`, `why`, `typescript-best-practices`, and `make-bot-ui` (upstream `73f8be4`): dropped per the 0.9.8 invariant. `skills/make-bot-ui/` (upstream `799151d`): Cursor-only, listed under "What's deliberately not ported" with `update_state` and `Grok Bot` added to the sync denylist. `assets/logo.png` (v0.14.7, v0.14.8), `README.md`, and `docs/guide/` changes: not part of the ported tree.
+
 ## 0.9.18 — plugin author names the port maintainer
 
 `plugin.json` and the marketplace entry listed Lauren Tan as `author`, so the Claude Code plugin UI credited the upstream author for the port. The `author` and `owner` fields now name Michael Denyer with an email and GitHub URL. Lauren Tan's authorship of the original pstack stays in every description, the README, and the vendored license texts.
